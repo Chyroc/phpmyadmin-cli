@@ -10,13 +10,13 @@ go:
   - 1.10.x
 
 before_install:
-  - ./testdata/start_server.sh
   - go get -u github.com/haya14busa/goverage
 
 script:
 # lint
 #  test
   - make build
+  - echo $(pwd)
   - ./testdata/test.sh
 
 notifications:

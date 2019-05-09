@@ -247,7 +247,7 @@ func initConfig() {
 	flag.BoolVar(&help, "h", false, "show help")
 	flag.BoolVar(&prune, "prune", false, "清理命令记录")
 	flag.BoolVar(&list, "list", false, "获取server列表")
-	flag.StringVar(&server, "server", "", "选择server")
+	flag.StringVar(&server, "server", "1", "选择server")
 	flag.BoolVar(&common.IsDebug1, "v", false, "开启调试信息 v")
 	flag.BoolVar(&common.IsDebug2, "vv", false, "开启调试信息 vv")
 	flag.BoolVar(&common.IsDebug3, "vvv", false, "开启调试信息 vvv")
@@ -314,10 +314,9 @@ func main() {
 		return
 	}
 
-	if err := phpmyadmin.DefaultPHPMyAdmin.Login(username, password); err != nil {
+	if err := phpmyadmin.DefaultPHPMyAdmin.Login(username, password, server); err != nil {
 		common.Exit(err)
 	}
-	server = "1"
 
 	p := prompt.New(
 		executor,

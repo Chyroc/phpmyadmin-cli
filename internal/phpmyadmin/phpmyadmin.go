@@ -58,7 +58,7 @@ func (p *phpMyAdmin) SetURI(uri string) {
 	p.uri = uri
 }
 
-func (p *phpMyAdmin) Login(username, password string) (err error) {
+func (p *phpMyAdmin) Login(username, password, server string) (err error) {
 	defer func() {
 		if err != nil {
 			common.Error(err)
@@ -76,7 +76,7 @@ func (p *phpMyAdmin) Login(username, password string) (err error) {
 		return nil
 	}
 
-	body := fmt.Sprintf("pma_username=%s&pma_password=%s&token=%s", username, password, utils.Escape(p.Token))
+	body := fmt.Sprintf("pma_username=%s&pma_password=%s&token=%s&server=%s", username, password, utils.Escape(p.Token), server)
 	header := map[string]string{"Content-Type": "application/x-www-form-urlencoded"}
 
 	if _, err := p.Post(p.uri, "index.php", nil, header, strings.NewReader(body)); err != nil {
